@@ -1,243 +1,55 @@
-#Temporary. Old code that was used for testing turtle graphics.
+import tkinter as tk
+from PIL import Image, ImageTk
 
-# Turtle Graphics Travels
+# Creating the window
+window = tk.Tk()
+window.title("Rock_Paper_Scissors")
+window.geometry("600x600")
+window.config(bg="lightblue")
 
-# Turtle module imported to be able to use its' functions.
-import turtle
+# Making canvas in window
+canvas = tk.Canvas(window, width=600, height=600, bg="lightblue")
+canvas.pack()
 
-# Created cute_turtle object to be used.
-cat = turtle.Turtle()
+# Canvas and circle parameters
+canvas_width = 600
+canvas_height = 600
+circle_radius = 50
+spacing = 200  # Distance between circles
+# Places the circles on the bottom quarterish
+y_position = int(canvas_height * 0.700)
 
-# Set speed for turtle.
-cat.speed(5)
+default_color = "#ffb347"  # Pastel orange (default color)
+clicked_color = "#ff6666"  # Color when clicked
 
-# Set fill in color 1st Roadblock.
-cat.fillcolor('blue')
+def change_color_on_press(event, circle_id):
+    canvas.itemconfig(circle_id, fill=clicked_color)
+   
+def revert_color_on_release(event, circle_id):
+    canvas.itemconfig(circle_id, fill=default_color)
 
-# Creates the 1st Vertical Roadblock.
-cat.penup()
-cat.goto(-150,-200)
-cat.pendown()
-cat.begin_fill()
-cat.left(90)
-cat.forward(80)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(-140, -200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
+# Position circles
+first_circle_x_position = (canvas_width // 2) - spacing
 
-# Creates the 2nd Vertical Roadblock.
-cat.penup()
-cat.goto(-100,-200)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(130)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(-90,-200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
+# Make 3 circles on x-axis with middle centered
+for i in range(3):
+    # Keeps them on x-axis spaced by value
+    x_position = first_circle_x_position + i * spacing
+    circle_id = canvas.create_oval(
+        x_position - circle_radius, y_position - circle_radius, 
+        x_position + circle_radius, y_position + circle_radius,
+        fill=default_color
+    )
 
-# Creates the 3rd Vertical Roadblock.
-cat.penup()
-cat.goto(-50,-200)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(80)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(-40, -200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
 
-# Creates the 4th Vertical Roadblock.
-cat.penup()
-cat.goto(20,-200)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(100)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(30, -200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
+# Mouse events
+    canvas.tag_bind(circle_id, "<ButtonPress-1>", lambda event, cid=circle_id: change_color_on_press(event, cid))
+    canvas.tag_bind(circle_id, "<ButtonRelease-1>", lambda event, cid=circle_id: revert_color_on_release(event, cid))
 
-# Creates the 5th Vertical Roadblock.
-cat.penup()
-cat.goto(80,-200)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(260)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(90, -200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
 
-# Creates the 6th Vertical Roadblock.
-cat.penup()
-cat.goto(140,-200)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(140)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(150, -200)
-cat.right(90)
-cat.forward(10)
-cat.end_fill()
 
-# Creates the 1st Horizontal Roadblock.
-cat.penup()
-cat.goto(-100,-60)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.forward(50)
-cat.right(90)
-cat.forward(10)
-cat.goto(-100,-60)
-cat.end_fill()
 
-# Creates the 2nd Horizontal Roadblock.
-cat.penup()
-cat.goto(-50,-110)
-cat.pendown()
-cat.begin_fill()
-cat.right(180)
-cat.forward(10)
-cat.right(90)
-cat.forward(60)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(-50,-110)
-cat.end_fill()
 
-# Creates the 3rd Horizontal Roadblock.
-cat.penup()
-cat.goto(20,-90)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.forward(50)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(20,-90)
-cat.end_fill()
 
-# Creates the 4th Horizontal Roadblock.
-cat.penup()
-cat.goto(80,70)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.forward(60)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(80,70)
-cat.end_fill()
-
-# Creates the 5th Horizontal Roadblock.
-cat.penup()
-cat.goto(140,-50)
-cat.pendown()
-cat.begin_fill()
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.forward(60)
-cat.right(90)
-cat.forward(10)
-cat.right(90)
-cat.goto(140,-50)
-cat.end_fill()
-
-# Positions the turtle-cat object.
-cat.penup() 
-cat.goto(-200,-200)
-cat.left(90)
-cat.pendown()
-cat.pensize(2)
-
-# Indicates the movements of the turtle:
-# Hori-1
-cat.left(90)
-cat.forward(40)
-
-# Vert-1
-cat.left(90)
-cat.forward(85)
-
-# Hori-2
-cat.right(90)
-cat.forward(55)
-
-# Vert-2
-cat.left(90)
-cat.forward(50)
-
-# Hori-3
-cat.right(90)
-cat.forward(45)
-
-# Vert-3
-cat.right(90)
-cat.forward(50)
-
-# Hori-4
-cat.left(90)
-cat.forward(75)
-
-# Vert-4
-cat.left(90)
-cat.forward(20)
-
-# Hori-5
-cat.right(90)
-cat.forward(60)
-
-# Vert-5
-cat.left(90)
-cat.forward(160)
-
-# Hori-6
-cat.right(90)
-cat.forward(60)
-
-# Vert-6
-cat.right(90)
-cat.forward(120)
-
-# Hori-7
-cat.left(90)
-cat.forward(65)
-
-# Vert-7
-cat.right(90)
-cat.goto(200,-200)
+# Start the event loop
+window.mainloop()
